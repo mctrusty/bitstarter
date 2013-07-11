@@ -36,24 +36,27 @@ var assertFileExists = function(infile) {
     return instr;
 };
 
-var getUrl = function(myurl, checksfile){
+var checkWebFile = function(myurl, checksfile){
     //'complete' event emitted whent the request has completed
     // To get more informative, we should probably handle status codes
-    var page = rest.get(myurl).on('complete', function(result) {
+    rest.get(myurl).on('complete', function(result) {
 	if (result instanceof Error) {
 	    console.log('Error: ' + result.message);
 	    process.exit(1);
 	} else {
-	    checkWebFile(result, checksfile);
+	    checkFile(result, checksfile);
 	}
     });
 }
 
-var cheerioHtmlFile = function(htmlfile){
-    return cheerio.load(fs.readFileSync(htmlfile));
-};
+var checkHtmlFile = function(htmlfile, checksfile){
+    fs.readFile(htmlfile, function(err, data){
+	if (err) throw err;
+	checkFile(data, checksfile);
+    });
+}
 
-var checkWebFile = function(data, checksfile){
+var checkFile = function(data, checksfile){
     $ = cheerio.load(data);
     var checks = loadChecks(checksfile).sort();
     var out = {};
@@ -66,17 +69,6 @@ var checkWebFile = function(data, checksfile){
     
 var loadChecks = function(checksfile){
     return JSON.parse(fs.readFileSync(checksfile));
-};
-
-var checkHtmlFile = function(htmlfile, checksfile){
-    $ = cheerioHtmlFile(htmlfile);
-    var checks = loadChecks(checksfile).sort();
-    var out = {};
-    for (var ii in checks){
-	var present = $(checks[ii]).length > 0;
-	out[checks[ii]] = present;
-    }
-    return out;
 };
 
 var clone = function(fn) {
@@ -93,11 +85,9 @@ if (require.main == module) {
       .parse(process.argv);
     
     if (program.url){
-	getUrl(program.url, program.checks) //async call
+	checkWebFile(program.url, program.checks) //async call
     } else {
-	var checkJson = checkHtmlFile(program.file, program.checks);
-	var outJson = JSON.stringify(checkJson, null, 4);
-	console.log(outJson);
+	checkHtmlFile(program.file, program.checks)
     }
 
 } else {
