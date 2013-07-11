@@ -36,38 +36,22 @@ var assertFileExists = function(infile) {
     return instr;
 };
 
-var assertUrlExists = function(myurl){
-    var page = getUrl(myurl);
-    return page;
-}
-
 var getUrl = function(myurl, checksfile){
     //'complete' event emitted whent the request has completed
+    // To get more informative, we should probably handle status codes
     var page = rest.get(myurl).on('complete', function(result) {
 	if (result instanceof Error) {
 	    console.log('Error: ' + result.message);
 	    process.exit(1);
 	} else {
-	    cheerioWebFile(result, checksfile);
-	    return result;
+	    checkWebFile(result, checksfile);
 	}
     });
-    return page;
 }
 
 var cheerioHtmlFile = function(htmlfile){
-    if (htmlfile.indexOf('http://') == -1){
-	return cheerio.load(fs.readFileSync(htmlfile));
-    } else {
-	page = getUrl(htmlfile);
-	while (!page.request.res) { ; };
-	return cheerio.load(page.request.res.rawEncoded);
-    }
+    return cheerio.load(fs.readFileSync(htmlfile));
 };
-
-var cheerioWebFile = function(data, checksfile){
-    checkWebFile(data, checksfile);
-}
 
 var checkWebFile = function(data, checksfile){
     $ = cheerio.load(data);
