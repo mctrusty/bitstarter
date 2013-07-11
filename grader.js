@@ -41,13 +41,14 @@ var assertUrlExists = function(myurl){
     return page;
 }
 
-var getUrl = function(myurl){
+var getUrl = function(myurl, checksfile){
     //'complete' event emitted whent the request has completed
     var page = rest.get(myurl).on('complete', function(result) {
 	if (result instanceof Error) {
 	    console.log('Error: ' + result.message);
 	    process.exit(1);
 	} else {
+	    cheerioWebFile(result, checksfile);
 	    return result;
 	}
     });
@@ -59,10 +60,26 @@ var cheerioHtmlFile = function(htmlfile){
 	return cheerio.load(fs.readFileSync(htmlfile));
     } else {
 	page = getUrl(htmlfile);
+	while (!page.request.res) { ; };
 	return cheerio.load(page.request.res.rawEncoded);
     }
 };
 
+var cheerioWebFile = function(data, checksfile){
+    checkWebFile(data, checksfile);
+}
+
+var checkWebFile = function(data, checksfile){
+    $ = cheerio.load(data);
+    var checks = loadChecks(checksfile).sort();
+    var out = {};
+    for (var ii in checks){
+	var present = $(checks[ii]).length > 0;
+	out[checks[ii]] = present;
+    }
+    console.log(JSON.stringify(out, null, 4));
+};
+    
 var loadChecks = function(checksfile){
     return JSON.parse(fs.readFileSync(checksfile));
 };
@@ -92,14 +109,13 @@ if (require.main == module) {
       .parse(process.argv);
     
     if (program.url){
-	var checkJson = checkHtmlFile(program.url, program.checks);
+	getUrl(program.url, program.checks) //async call
     } else {
 	var checkJson = checkHtmlFile(program.file, program.checks);
-    }    
-    var outJson = JSON.stringify(checkJson, null, 4);
-    console.log(outJson);
+	var outJson = JSON.stringify(checkJson, null, 4);
+	console.log(outJson);
+    }
 
 } else {
     exports.checkHtmlfile = checkHtmlFile;
 }
-
