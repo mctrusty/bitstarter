@@ -92,4 +92,5 @@ if (require.main == module) {
 
 } else {
     exports.checkHtmlfile = checkHtmlFile;
+    exports.checkWebfile = checkWebFile;
 }
