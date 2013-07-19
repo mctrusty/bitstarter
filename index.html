@@ -1,19 +1,17 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <title>Bitstarter</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta name="description" content="crowdfunding site for beercheer" />
-  <meta name="keywords" content="beer, crowdfunding" />
-  <meta name="robots" content="index,follow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link type="text/css" rel="stylesheet"
 	href="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fbootstrap-combined.no-icons.min.css"></link>
   <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css"></link>
   <link rel="stylesheet" href="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fsocial-buttons.css"></link>
-  <link rel="stylesheet" href="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fjquery.js"></link>
-  <link rel="stylesheet" href="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fbootstrap.js"></link>
+  <script src="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fjquery.js"></script>
+  <script src="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fbootstrap.js"></script>
   <link href="http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700,300italic, 400italic, 500italic, 700italic" rel="stylesheet" type="text/css"></link>
-  <link href="fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,300,400,600,700,800" rel="stylesheet" type="text/css"></link>
+  <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,300,400,600,700,800" rel="stylesheet" type="text/css"></link>
   <style type="text/css">
     /* Large desktop */
     @media(min-width: 980px) {
@@ -47,7 +45,7 @@
     body { 
       font-family: 'Open Sans', Helvetica, Arial, sans-serif;
     }
-    .heading .subheading {
+    .heading, .subheading {
       font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
       text-align: center;
     }
@@ -74,7 +72,7 @@
       text-align: center;
     }
     .statistics h3, .statistics p {
-      text-align: center;
+      color: white;
     }
     
     /* Marketing copy and footer */
@@ -123,65 +121,75 @@
       </div>
     </div>
   </div>
-					      
+	
+<!-- We use row-fluid inside containers to achieve a resizeable layout -->
+<!-- blogs.endjin.com/2013/04/tips-for-implementing-responsive-designs-using-bootstrap -->
+				      
 <div class="container">
-  <div class="row navigation">
-    <div class="span2 logo">
-      Logo
-    </div>
-    <div class="span6 blank">
-      Blank
-    </div>
-    <div class="about">
-      About
-    </div>
-  </div>
-  <div class="row heading">
+  <!-- font and paired fot of .heading/.subheading and body from Google Fonts -->
+  <!-- www.google.com/fonts/specimen/Ubuntu -->
+  <!-- www.google.com/fonts/specimen/Ubuntu#pairings -->
+  
+  <div class="row-fluid heading">
     <div class="span12">
-      <h1>Beercheer Bitstarter</h1>
+      <h1>BeerCheer</h1>
     </div>
   </div>
-  <div class="row subheading">
+  <div class="row-fluid subheading">
     <div class="span12">
-      <p class="lead">This is my first bitstarter project.</p>
+      <!-- special typography from bs for lead para -->
+      <!-- http://twitter.github.io/bootstrap/base-css.html#typeography -->
+      <p class="lead">One sentence description</p>
     </div>
   </div>
-  <div class = "row pitch">
-    <div class="span6 video">
-      Video
+  <div class="row-fluid pitch">
+    <div class="span5 offset1 video">
+      <img class="img-polaroid" src="http://placehold.it/480x300">
     </div>
-    <div class="span6">
-      <div class="thermometer">
-	Thermometer
+    
+    <!-- We define a new 'actions' div to contain statistics, order, and share buttons -->
+    <div class="span5 actions">
+      <!--div class="row-fluid"-->
+      <div class="span8 offset2">
+	<div class="statistics">
+	  <div class="span4">
+	    <!-- linediv-l and linediv-r are dividing lines that look 
+		 different in horizontal and vertical layouts, illustrating
+		 media queries -->
+	    <div class="linediv-l">
+	      <h3>1000</h3> <p>backers</p>
+	    </div>
+	  </div>
+	  <div class="span4">
+	    <div class="linediv-c">
+	      <h3>$6000</h3><p>of $10,000</p>
+	    </div>
+	  </div>
+	  <div class="span4">
+	    <div class="linediv-r">
+	      <h3>10</h3><p>days left</p>
+	    </div>
+	  </div>
+	</div> <!-- stats -->
       </div>
-      <div class="order">
-	Order
+      <div class="span10 offset1">
+	<div class="thermometer progress active">
+	  <div class="bar bar-success" style="width: 60%;"></div>
+	  <div class="bar bar-warning" style="width: 40%;"></div>
+	</div>
       </div>
-      <div class="social">
-	Social
+      <div class="span6 offset3 order">
+	<!-- standard bootstrap button -->
+	<!-- http://twitter.github.io/bootstrap/base-css.html#buttons -->
+	<button class="btn btn-success btn-large">Preorder</button>
+      </div>
+      <div class="span8 offset2 social">
+	<button class="btn btn-twitter"><i class="icon-twitter"></i>| Twitter</button>
+	<button class="btn btn-facebook"><i class="icon-facebook"></i>| Facebook</button>
+      <!-- /div -->
       </div>
     </div>
-  </div>
-  <div class="row section1">
-    <div class="span12">
-      Marketing section 1
-    </div>
-  </div>
-  <div class="row section2">
-    <div class="span12">
-      Marketing Section 2
-    </div>
-  </div>
-  <div class="row faq">
-    <div class="span12">
-      FAQ
-    </div>
-  </div>
-  <div class="row footer">
-    <div class="span12">
-      Footer
-    </div>
-  </div>
-</div>
+  </div><!-- pitch -->
+</div>  
 </body>
 </html>
