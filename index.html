@@ -149,9 +149,9 @@
     
     <!-- We define a new 'actions' div to contain statistics, order, and share buttons -->
     <div class="span5 actions">
-      <!--div class="row-fluid"-->
+      <div class="row-fluid">
       <div class="span8 offset2">
-	<div class="statistics">
+	<div class="row-fluid statistics">
 	  <div class="span4">
 	    <!-- linediv-l and linediv-r are dividing lines that look 
 		 different in horizontal and vertical layouts, illustrating
@@ -172,21 +172,27 @@
 	  </div>
 	</div> <!-- stats -->
       </div>
+      <div class="row-fluid">
       <div class="span10 offset1">
 	<div class="thermometer progress active">
 	  <div class="bar bar-success" style="width: 0%;"></div>
 	  <div class="bar bar-warning" style="width: 100%;"></div>
 	</div>
       </div>
+      </div>
+      <div class="row-fluid">
       <div class="span6 offset3 order">
 	<!-- standard bootstrap button -->
 	<!-- http://twitter.github.io/bootstrap/base-css.html#buttons -->
 	<button class="btn btn-success btn-large">Preorder</button>
       </div>
+      </div>
+      <div class="row-fluid">
       <div class="span8 offset2 social">
 	<button class="btn btn-twitter"><i class="icon-twitter"></i>| Twitter</button>
 	<button class="btn btn-facebook"><i class="icon-facebook"></i>| Facebook</button>
       <!-- /div -->
+      </div>
       </div>
     </div>
   </div><!-- pitch -->
